@@ -81,92 +81,9 @@ Contoh Data Alternatif:
 
 ---
 
-## 4. Langkah Perhitungan GDSS dengan Metode Borda
+## 4. Langkah Perhitungan Metode TOPSIS
 
-Metode yang digunakan adalah **GDSS Borda** untuk agregasi peringkat dari beberapa asesor menjadi satu keputusan kolektif.
-
-### A. Tahap 1: Input Penilaian oleh Asesor
-
-Setiap asesor memberikan penilaian untuk setiap alternatif pada setiap kriteria:
-
-1. Asesor login ke sistem dan mengakses menu **Input Penilaian**
-2. Untuk setiap Tim Relawan dan setiap Kriteria, asesor memilih nilai subkriteria yang sesuai
-3. Sistem menyimpan data penilaian: (id_alternatif, id_kriteria, id_subkriteria, id_user)
-
-### B. Tahap 2: Perhitungan Nilai Total Per Asesor
-
-Untuk setiap asesor, sistem menghitung nilai total setiap alternatif:
-
-**Rumus Nilai Total Alternatif i oleh Asesor j:**
-
-```
-Total_ij = Σ (Nilai_Subkriteria_ik × Bobot_k / 100)
-```
-
-Dimana:
-- `Nilai_Subkriteria_ik` = Nilai subkriteria yang dipilih untuk alternatif i pada kriteria k
-- `Bobot_k` = Bobot kriteria k (dalam persentase)
-
-### C. Tahap 3: Penetapan Ranking Per Asesor
-
-Berdasarkan nilai total, sistem mengurutkan alternatif dari nilai tertinggi ke terendah untuk setiap asesor, menghasilkan ranking per asesor:
-
-| Alternatif | Nilai Total (Asesor 1) | Ranking (Asesor 1) |
-|------------|------------------------|--------------------|
-| Tim A | 4.20 | 1 |
-| Tim B | 3.95 | 2 |
-| Tim C | 3.80 | 3 |
-| ... | ... | ... |
-
-### D. Tahap 4: Penetapan Poin Borda
-
-Sistem menerapkan **Poin Borda** berdasarkan ranking:
-
-**Rumus Poin Borda Standar:**
-```
-Poin_Borda = n - ranking + 1
-```
-Dimana `n` = jumlah alternatif
-
-Contoh untuk 5 alternatif:
-| Ranking | Poin Borda |
-|---------|------------|
-| 1 | 5 |
-| 2 | 4 |
-| 3 | 3 |
-| 4 | 2 |
-| 5 | 1 |
-
-**Catatan**: Sistem mendukung **konfigurasi poin Borda kustom** yang dapat diubah oleh Administrator.
-
-### E. Tahap 5: Agregasi Skor Borda Kolektif
-
-Setiap alternatif menerima poin Borda dari setiap asesor, kemudian dijumlahkan:
-
-**Rumus Total Skor Borda Alternatif i:**
-```
-Total_Skor_Borda_i = Σ Poin_Borda_ij (untuk semua asesor j)
-```
-
-### F. Tahap 6: Penentuan Ranking Akhir
-
-Alternatif diurutkan berdasarkan Total Skor Borda tertinggi:
-
-| Alternatif | Poin Asesor 1 | Poin Asesor 2 | Poin Asesor 3 | Total Skor Borda | Ranking Akhir |
-|------------|---------------|---------------|---------------|------------------|---------------|
-| Tim C | 4 | 5 | 5 | 14 | 1 |
-| Tim A | 5 | 4 | 4 | 13 | 2 |
-| Tim B | 3 | 3 | 3 | 9 | 3 |
-| Tim D | 2 | 2 | 1 | 5 | 4 |
-| Tim E | 1 | 1 | 2 | 4 | 5 |
-
-**Kesimpulan Keputusan**: Tim dengan total skor Borda tertinggi ditetapkan sebagai **Tim Relawan Terbaik**.
-
----
-
-## 5. Langkah Perhitungan Metode TOPSIS
-
-Sistem ini juga mengimplementasikan **Metode TOPSIS (Technique for Order of Preference by Similarity to Ideal Solution)** sebagai metode alternatif untuk pengambilan keputusan multi-kriteria.
+Sistem ini mengimplementasikan **Metode TOPSIS (Technique for Order of Preference by Similarity to Ideal Solution)** untuk pengambilan keputusan multi-kriteria.
 
 ### A. Tahap 1: Matriks Keputusan (X)
 
@@ -271,6 +188,89 @@ Dimana:
 | Tim E | 0.0489 | 0.0134 | 0.215 | 5 |
 
 **Kesimpulan**: Tim B memiliki nilai preferensi tertinggi (0.721), sehingga ditetapkan sebagai alternatif terbaik berdasarkan metode TOPSIS.
+
+---
+
+## 5. Langkah Perhitungan GDSS dengan Metode Borda
+
+Metode yang digunakan adalah **GDSS Borda** untuk agregasi peringkat dari beberapa asesor menjadi satu keputusan kolektif.
+
+### A. Tahap 1: Input Penilaian oleh Asesor
+
+Setiap asesor memberikan penilaian untuk setiap alternatif pada setiap kriteria:
+
+1. Asesor login ke sistem dan mengakses menu **Input Penilaian**
+2. Untuk setiap Tim Relawan dan setiap Kriteria, asesor memilih nilai subkriteria yang sesuai
+3. Sistem menyimpan data penilaian: (id_alternatif, id_kriteria, id_subkriteria, id_user)
+
+### B. Tahap 2: Perhitungan Nilai Total Per Asesor
+
+Untuk setiap asesor, sistem menghitung nilai total setiap alternatif:
+
+**Rumus Nilai Total Alternatif i oleh Asesor j:**
+
+```
+Total_ij = Σ (Nilai_Subkriteria_ik × Bobot_k / 100)
+```
+
+Dimana:
+- `Nilai_Subkriteria_ik` = Nilai subkriteria yang dipilih untuk alternatif i pada kriteria k
+- `Bobot_k` = Bobot kriteria k (dalam persentase)
+
+### C. Tahap 3: Penetapan Ranking Per Asesor
+
+Berdasarkan nilai total, sistem mengurutkan alternatif dari nilai tertinggi ke terendah untuk setiap asesor, menghasilkan ranking per asesor:
+
+| Alternatif | Nilai Total (Asesor 1) | Ranking (Asesor 1) |
+|------------|------------------------|-------------------|
+| Tim A | 4.20 | 1 |
+| Tim B | 3.95 | 2 |
+| Tim C | 3.80 | 3 |
+| ... | ... | ... |
+
+### D. Tahap 4: Penetapan Poin Borda
+
+Sistem menerapkan **Poin Borda** berdasarkan ranking:
+
+**Rumus Poin Borda Standar:**
+```
+Poin_Borda = n - ranking + 1
+```
+Dimana `n` = jumlah alternatif
+
+Contoh untuk 5 alternatif:
+| Ranking | Poin Borda |
+|---------|------------|
+| 1 | 5 |
+| 2 | 4 |
+| 3 | 3 |
+| 4 | 2 |
+| 5 | 1 |
+
+**Catatan**: Sistem mendukung **konfigurasi poin Borda kustom** yang dapat diubah oleh Administrator.
+
+### E. Tahap 5: Agregasi Skor Borda Kolektif
+
+Setiap alternatif menerima poin Borda dari setiap asesor, kemudian dijumlahkan:
+
+**Rumus Total Skor Borda Alternatif i:**
+```
+Total_Skor_Borda_i = Σ Poin_Borda_ij (untuk semua asesor j)
+```
+
+### F. Tahap 6: Penentuan Ranking Akhir
+
+Alternatif diurutkan berdasarkan Total Skor Borda tertinggi:
+
+| Alternatif | Poin Asesor 1 | Poin Asesor 2 | Poin Asesor 3 | Total Skor Borda | Ranking Akhir |
+|------------|---------------|---------------|---------------|------------------|---------------|
+| Tim C | 4 | 5 | 5 | 14 | 1 |
+| Tim A | 5 | 4 | 4 | 13 | 2 |
+| Tim B | 3 | 3 | 3 | 9 | 3 |
+| Tim D | 2 | 2 | 1 | 5 | 4 |
+| Tim E | 1 | 1 | 2 | 4 | 5 |
+
+**Kesimpulan Keputusan**: Tim dengan total skor Borda tertinggi ditetapkan sebagai **Tim Relawan Terbaik**.
 
 ---
 
