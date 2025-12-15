@@ -1,0 +1,18 @@
+=== SUBKRITERIA COLUMNS ===
+- id_subkriteria (int(11))
+- id_kriteria (int(11))
+- nama_subkriteria (varchar(255))
+- nilai (float)
+
+=== PENILAIAN COLUMNS ===
+- id_penilaian (int(11))
+- id_user (int(11))
+- id_alternatif (int(11))
+- id_kriteria (int(11))
+- id_sub_kriteria (int(11))
+- nilai (decimal(4,2))
+- catatan (text)
+- created_at (timestamp)
+
+=== QUERY TEST ===
+EXCEPTION: Unknown column 'p.id_subkriteria' in 'on clause'
